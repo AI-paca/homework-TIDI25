@@ -1,8 +1,7 @@
-18nov25/2025-11-18/app
-2025-11-18/main
-2025-11-18/main_gcc
-2025-10-17/main
-.gitignore
-.vscode/launch.json
-.vscode/tasks.json
-2025-11-18/app
+*
+!*/
+!*.c
+!*.cc
+!*.cpp
+!*.md
+!.gitignore
