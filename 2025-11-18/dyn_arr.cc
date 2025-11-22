@@ -137,3 +137,131 @@ float DynamicArray::operator()() {
   return sum;
 }
 
+////////////////////////////////////////////// HW
+
+  void DynamicArray::push_front(float x){
+  if (size + 1 >= capacity) {
+    std::int64_t newCapacity = capacity * 2;
+    float* tempArray = new float[newCapacity];
+    for (int i = 0; i < capacity; ++i) {
+      tempArray[i+1] = data[i];
+    }
+    delete[] data;
+    data = tempArray;
+    capacity = newCapacity;
+    data[0] = x;
+    ++size;
+    return;
+  }
+  else {
+    float temp = data[0];
+    for (int i = 0; i <= size; ++i) {
+      std::swap(data[i+1], temp);
+    }
+    data[0] = x;
+    ++size;
+    return;
+  }
+  }
+
+  float DynamicArray::front(){
+    if (isEmpty()) {
+      throw std::invalid_argument("Empty array");
+    }
+    return data[0];
+  }
+
+  float DynamicArray::back(){
+    if (isEmpty()) {
+      throw std::invalid_argument("Empty array");
+    }
+    return data[size];
+  }
+
+  void DynamicArray::insert(std::int64_t idx, float val){
+    if (idx < 0 || idx > size + 1) {
+      throw std::invalid_argument("Index out of range");
+    }
+
+    //сдвигать элементы массива, стоящие правее data[idx] вправо(Без этого, это не инсерт, а replace)
+    if (size + 1 >= capacity) {
+      std::int64_t newCapacity = capacity * 2;
+      float* tempArray = new float[newCapacity];
+      for (int i = 0; i < idx; ++i) {
+        tempArray[i] = data[i];
+      }
+      tempArray[idx] = val;
+      for (int i = idx; i <= size; ++i) {
+        tempArray[i + 1] = data[i];
+      }
+      delete[] data;
+      data = tempArray;
+      capacity = newCapacity;
+      ++size;
+      return;
+    }
+    else {
+      float temp = data[idx];
+      data[idx] = val;
+      for (int i = idx; i <= size; ++i) {
+        std::swap(data[i + 1], temp);
+      }
+      ++size;
+      return;
+    }
+  }
+
+  void DynamicArray::rename_it_latter_delete(std::int64_t idx){
+    if (idx < 0 || idx > size) {
+      throw std::invalid_argument("Index out of range");
+    }
+    //сдвигать элементы массива, стоящие правее data[idx] влево
+    for (int i = idx; i < size; ++i) {
+      data[i] = data[i + 1];
+    }
+    --size;
+  }
+
+  void DynamicArray::erase_after(std::int64_t idx){
+    if (idx < 0 || idx > size) {
+      throw std::invalid_argument("Index out of range");
+    }
+    for (int i = idx + 1; i <= size; ++i) {
+      data[i] = 0; // optional
+      --size;
+    }
+    //удалить все после элемента idx (тебя должен капасити остаться тот же, в то время как элементов для доступа меньше)
+    // Было 10 элементов, капасити 15
+    // Erase_after(5)
+    // Остаются первые 6, капасити также 15, размер 6
+  } 
+
+  void DynamicArray::increase_capacity(std::int64_t newCapacity){
+    if (newCapacity <= capacity) {
+      throw std::invalid_argument("New capacity must be greater than current capacity");
+    }
+    float* tempArray = new float[newCapacity];
+    for (int i = 0; i <= size; ++i) {
+      tempArray[i] = data[i];
+    }
+    delete[] data;
+    data = tempArray;
+    capacity = newCapacity;
+  }
+
+  void DynamicArray::decrease_capacity(std::int64_t newCapacity){ 
+    if (newCapacity < 0) {
+      throw std::invalid_argument("New capacity must be greater than or equal to number of elements");
+    }
+    //новая вместимость может быть меньше количества элементов 
+    float* tempArray = new float[newCapacity];
+    for (int i = 0;(i <= size) && (i < newCapacity); ++i) {
+      tempArray[i] = data[i];
+    }
+    delete[] data;
+    data = tempArray;
+    capacity = newCapacity;
+    if (size >= newCapacity) {
+      size = newCapacity - 1;
+    }
+  }

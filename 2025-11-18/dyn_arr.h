@@ -31,16 +31,17 @@ public:
   float operator[](std::int64_t idx);
   float operator()();
 
-  // push_front(val),
-  // front() - получить нулевой элемент, 
-  // back() - получить последний элемент, insert(idx, val), 
-  // delete(idx),
-  // erase_after(idx) - удалить все после элемента idx (тебя должен капасити остаться тот же, в то время как элементов для доступа меньше)
+  void push_front(float x);
+  float front(); //получить нулевой элемент
+  float back(); //получить последний элемент
+  void insert(std::int64_t idx, float val);//сдвигать элементы массива, стоящие правее data[idx] вправо(Без этого, это не инсерт, а replace)
+  void rename_it_latter_delete(std::int64_t idx); //сдвигать элементы массива, стоящие правее data[idx] влево
+  void erase_after(std::int64_t idx); //удалить все после элемента idx (тебя должен капасити остаться тот же, в то время как элементов для доступа меньше)
     // Было 10 элементов, капасити 15
     // Erase_after(5)
     // Остаются первые 6, капасити также 15, размер 6
-  // increase_capacity(newCapacity), //Надо сдвигать элементы массива, стоящие правее data[idx] вправо(Без этого, это не инсерт, а replace)
-  // decrease_capacity(newCapacity) //новая вместимость может быть меньше количества элементов 
+  void increase_capacity(std::int64_t newCapacity);
+  void decrease_capacity(std::int64_t newCapacity); //новая вместимость может быть меньше количества элементов 
 
 };
 
