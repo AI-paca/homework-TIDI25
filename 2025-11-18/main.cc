@@ -1,3 +1,6 @@
+// Аверкина В.О. ТИДИ25
+// ДЗ до 24.11 23:59
+
 #include "dyn_arr.h"
 #include <iostream>
 
@@ -11,7 +14,7 @@ int main() {
   arr.printData();
   arr.insert(2, 99);
   arr.printData();
-  arr.rename_it_latter_delete(2); 
+  arr.erase(2); 
   arr.printData();  
   arr.erase_after(2);
   arr.printData();

@@ -211,7 +211,7 @@ float DynamicArray::operator()() {
     }
   }
 
-  void DynamicArray::rename_it_latter_delete(std::int64_t idx){
+  void DynamicArray::erase(std::int64_t idx){
     if (idx < 0 || idx > size) {
       throw std::invalid_argument("Index out of range");
     }
